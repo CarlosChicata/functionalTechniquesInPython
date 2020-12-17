@@ -39,7 +39,40 @@ def abstract_function(line, delimiter):
 tab_delimiter_process = partial(abstract_function, delimiter='\t')
 
 
+# composition function
+sum = lambda x : x + 1
+power_double = lambda x : x*x
+divide_by_2 = lambda x : x/2
+
+
+def composition_manual_1(x):
+    return sum(divide_by_2(power_double(x)))
+
+
+def composition_manual_2(x):
+    y = power_double(x)
+    y = divide_by_2(y)
+    return sum(y)
+
+
+# the composition is the right side
+def composition_function(*functions):
+    return reduce(lambda f, g: lambda x: g(f(x)), functions, lambda x: x)
+
+
+composition_automatic = composition_function(power_double, divide_by_2, sum)
+
+#currying
+
+
 # main
+# partial function
 print(function_1("hola que tal"))
 print(abstract_function("hola que tal", '\t'))
 print(tab_delimiter_process("hola que tal"))
+
+# composiition function
+print(composition_manual_1(5))
+print(composition_manual_2(5))
+print(composition_automatic(5))
+
