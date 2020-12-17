@@ -68,7 +68,22 @@ def composition_function_revert(*functions):
 composition_automatic = composition_function(power_double, divide_by_2, sum)
 composition_automatic_revert = composition_function_revert(sum, divide_by_2, power_double)
 
+
 #currying
+def without_currying(a, b, c):
+    return a + b + c
+
+
+def with_currying_1(a):
+    def inner_1(b):
+        def inner_2(c):
+            return a + b + c
+        return inner_2
+    return inner_1
+
+
+sum_five = with_currying(5)
+sum_five_and_six = with_currying(5)(6)
 
 
 # main
@@ -90,3 +105,9 @@ print("using closure")
 print(sum_with_five_without_closure(5))
 print(sum_with_five_with_closure()(5))
 
+# currying
+print("using currying")
+print(with_currying(5)(6)(7))
+print(without_currying(5, 6, 7))
+print(sum_five(6)(7))
+print(sum_five_and_six(7))
