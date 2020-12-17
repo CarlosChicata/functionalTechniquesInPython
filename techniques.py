@@ -4,8 +4,8 @@ Purpose:
 Methods:
     1) closure [x]
     2) partial function [x]
-    3) currying
-    4) composition function
+    3) currying []
+    4) composition function [x]
 """
 from functools import *
 
@@ -73,12 +73,20 @@ composition_automatic_revert = composition_function_revert(sum, divide_by_2, pow
 
 # main
 # partial function
+print("using partial function")
 print(function_1("hola que tal"))
 print(abstract_function("hola que tal", '\t'))
 print(tab_delimiter_process("hola que tal"))
 
-# composiition function
+# composition function
+print("using composition function")
 print(composition_manual_1(6))
 print(composition_manual_2(6))
 print(composition_automatic(6))
 print(composition_automatic_revert(6))
+
+# closure
+print("using closure")
+print(sum_with_five_without_closure(5))
+print(sum_with_five_with_closure()(5))
+
