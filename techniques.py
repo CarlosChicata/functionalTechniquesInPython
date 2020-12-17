@@ -60,7 +60,13 @@ def composition_function(*functions):
     return reduce(lambda f, g: lambda x: g(f(x)), functions, lambda x: x)
 
 
+# the composition is the right side
+def composition_function_revert(*functions):
+    return reduce(lambda f, g: lambda x: f(g(x)), functions, lambda x: x)
+
+
 composition_automatic = composition_function(power_double, divide_by_2, sum)
+composition_automatic_revert = composition_function_revert(sum, divide_by_2, power_double)
 
 #currying
 
@@ -72,7 +78,7 @@ print(abstract_function("hola que tal", '\t'))
 print(tab_delimiter_process("hola que tal"))
 
 # composiition function
-print(composition_manual_1(5))
-print(composition_manual_2(5))
-print(composition_automatic(5))
-
+print(composition_manual_1(6))
+print(composition_manual_2(6))
+print(composition_automatic(6))
+print(composition_automatic_revert(6))
