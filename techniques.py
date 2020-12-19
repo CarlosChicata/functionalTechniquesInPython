@@ -4,10 +4,12 @@ Purpose:
 Methods:
     1) closure [x]
     2) partial function [x]
-    3) currying []
+    3) currying [x]
     4) composition function [x]
+    5) complex example using severan funcion []
 """
 from functools import *
+from collections import Counter
 
 
 # closure
@@ -69,12 +71,12 @@ composition_automatic = composition_function(power_double, divide_by_2, sum)
 composition_automatic_revert = composition_function_revert(sum, divide_by_2, power_double)
 
 
-#currying
+# currying
 def without_currying(a, b, c):
     return a + b + c
 
 
-def with_currying_1(a):
+def with_currying(a):
     def inner_1(b):
         def inner_2(c):
             return a + b + c
@@ -85,6 +87,53 @@ def with_currying_1(a):
 sum_five = with_currying(5)
 sum_five_and_six = with_currying(5)(6)
 
+
+# complex function: a complex operation
+# using currying and closure to define a structure of function
+def closure_currying_function(x):
+    groups_num = 3
+
+    def inner_anonimous_function(y):
+        return x(list(map(lambda i: i % groups_num, y)))
+    return inner_anonimous_function
+
+
+# partial function
+def validate_number_member(x, y): return x >= y
+
+
+minimum_3_members = partial(validate_number_member, y=4)
+
+
+# normal function to generate data
+def counting_member_groups(list_member):
+    return dict(Counter(list_member))
+
+
+print(closure_currying_function(counting_member_groups)([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+
+
+# curiosing sing
+def a(x):
+    print("a")
+    def b(y):
+        print("b")
+        return x(y)
+    return b
+
+
+def d(x):
+    print("d")
+    def c(y):
+        print("c")
+        return x + y
+    return c
+
+
+print(a(d)(5)(4))
+
+
+'''
 
 # main
 # partial function
@@ -111,3 +160,5 @@ print(with_currying(5)(6)(7))
 print(without_currying(5, 6, 7))
 print(sum_five(6)(7))
 print(sum_five_and_six(7))
+'''
+
