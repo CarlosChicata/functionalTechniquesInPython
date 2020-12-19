@@ -99,7 +99,7 @@ def closure_currying_function(x):
 
 
 # partial function
-def validate_number_member(x, y): return x >= y
+def validate_number_member(x, y): return x[1] >= y
 
 
 minimum_3_members = partial(validate_number_member, y=4)
@@ -110,8 +110,16 @@ def counting_member_groups(list_member):
     return dict(Counter(list_member))
 
 
-print(closure_currying_function(counting_member_groups)([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+def which_group_has_more_members(x):
+    def inner_methods_1(y):
+        def inner_methods_2(z):
+            return list(map(x, list(filter(y, list(z.items())))))
+        return inner_methods_2
+    return inner_methods_1
 
+
+group_members = closure_currying_function(counting_member_groups)([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+which_group_has_more_members(print)(minimum_3_members)(group_members)
 
 # curiosing sing
 def a(x):
